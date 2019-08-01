@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tt-calulator-cmd", "tt-calulator-cmd\tt-calulator-cmd.csproj", "{DF12E34C-BAB8-4DC7-AAAB-082A6198A112}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tt-calculator-entities", "tt-calculator-entities\tt-calculator-entities.csproj", "{D19D1B52-0171-4D71-8547-19A55C29700F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DF12E34C-BAB8-4DC7-AAAB-082A6198A112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF12E34C-BAB8-4DC7-AAAB-082A6198A112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF12E34C-BAB8-4DC7-AAAB-082A6198A112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D19D1B52-0171-4D71-8547-19A55C29700F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D19D1B52-0171-4D71-8547-19A55C29700F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D19D1B52-0171-4D71-8547-19A55C29700F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D19D1B52-0171-4D71-8547-19A55C29700F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
