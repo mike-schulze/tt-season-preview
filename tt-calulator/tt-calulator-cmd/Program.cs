@@ -79,6 +79,8 @@ namespace tt_calulator_cmd
                     }
 
                     theLeague.Teams.Add( theTeam );
+
+                    Simulator.SimulateSeason( theLeague );
                 }
                 
             }
