@@ -70,6 +70,7 @@ namespace tt_calulator_cmd
                             {
                                 theLivePZString = theLivePZString.Substring(1, theLivePZString.Length - 2);
                                 theNewPlayer.CurrentLivePZ = Int16.Parse(theLivePZString);
+                                theNewPlayer.IsActive = false;
                             }
                         }
 

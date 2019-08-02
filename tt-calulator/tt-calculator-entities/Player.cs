@@ -8,10 +8,17 @@ namespace tt_calculator_entities
 {
     public class Player
     {
+        public Player()
+        {
+            IsActive = true;
+        }
+
         public string FullName { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
         public int CurrentLivePZ { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
