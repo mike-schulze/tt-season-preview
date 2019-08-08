@@ -13,9 +13,9 @@ namespace tt_calculator_entities
         eDraw
     }
 
-    public class MatchResult
+    public class FixtureResult
     {
-        public MatchResult( int aPointsTeam1, int aPointsTeam2 )
+        public FixtureResult( int aPointsTeam1, int aPointsTeam2 )
         {
             Points = new Tuple<int, int>( aPointsTeam1, aPointsTeam2 );
             Result = eResult.eDraw;

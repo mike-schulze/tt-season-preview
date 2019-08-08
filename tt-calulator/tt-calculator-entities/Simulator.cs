@@ -37,46 +37,23 @@ namespace tt_calculator_entities
             public readonly List<int> PlayerLivePZs;
         }
 
-        private struct Match
-        {
-            public Match( Setup aTeam1, Setup aTeam2 )
-            {
-                Team1 = aTeam1;
-                Team2 = aTeam2;
-                Result = null;
-            }
-
-            public void Simulate()
-            {
-                Result = new MatchResult( 7, 7 );
-            }
-
-            public readonly Setup Team1;
-            public readonly Setup Team2;
-            public MatchResult Result;
-        }
-
         public static void SimulateSeason( League aLeague )
         {
-            var theTeams = new List<Setup>();
-            foreach( var theTeam in aLeague.Teams )
-            {
-                theTeams.Add( new Setup( theTeam ) );
-            }
+            List<Team> theTeams = aLeague.Teams;
 
-            var theMatches = new List<Match>();
+            var theFixtures = new List<Fixture>();
             for( int i=0; i<aLeague.Teams.Count; ++i )
             {
-                for( int j=0; j<aLeague.Teams.Count; ++j )
+                for( int j=1; j<aLeague.Teams.Count; ++j )
                 {
-                    theMatches.Add(new Match(theTeams[i], theTeams[j]));
-                    theMatches.Add(new Match(theTeams[j], theTeams[i]));
+                    theFixtures.Add(new Fixture(theTeams[i], theTeams[j]));
+                    theFixtures.Add(new Fixture(theTeams[j], theTeams[i]));
                 }
             }
 
-            foreach( var theMatch in theMatches )
+            foreach( var theFixture in theFixtures)
             {
-                theMatch.Simulate();
+                theFixture.Simulate();
             }
         }
     }
