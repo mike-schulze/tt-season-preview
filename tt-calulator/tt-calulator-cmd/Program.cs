@@ -22,13 +22,14 @@ namespace tt_calulator_cmd
             string theTeamName = "";
             foreach( var theNode in theNodes )
             {
-                var theDeductedTables = theCounter - 4;
+                var theDeductedTables = theCounter - 3;
                 ++theCounter;
 
-                if( theCounter == 2 )
+                if( theCounter == 1 )
                 {
                     // get league name
-                    theLeague.Name = theNode.SelectSingleNode( ".//tr//td[2]" ).InnerText;
+                    var theLeagueNode = theNode.SelectSingleNode( ".//tbody//tr//td[3]" );
+                    theLeague.Name = theLeagueNode.InnerText;
                 }
 
                 if ( theDeductedTables < 0 )
@@ -36,13 +37,17 @@ namespace tt_calulator_cmd
                     continue;
                 }
 
-                if ( theDeductedTables % 3 == 0 )
+                if ( theDeductedTables % 2 == 0 )
                 {
                     // get team name
-                    theTeamName = theNode.SelectSingleNode( ".//tr//td" ).InnerText;
+                    theTeamName = theNode.SelectSingleNode( ".//tbody//tr//td" ).InnerText;
+                    if( theTeamName.Substring(0,8) == "Anmelden")
+                    {
+                        break;
+                    }
                 }
 
-                if( theDeductedTables % 3 == 1 )
+                if( theDeductedTables % 2 == 1 )
                 {
                     var theTeam = new Team
                     {
@@ -50,16 +55,19 @@ namespace tt_calulator_cmd
                     };
 
                     // get players 
-                    var thePlayers = theNode.SelectNodes( ".//tr[position()>1]" );
+                    var thePlayers = theNode.SelectNodes( ".//tbody//tr[position()>1]" );
 
                     foreach( var thePlayer in thePlayers )
                     {
-                        var theColumns = thePlayer.SelectNodes( ".//td" );
                         var theNewPlayer = new Player();
-                        theNewPlayer.FullName = theColumns.ElementAt(2).InnerText;
-                        theNewPlayer.DateOfBirth = DateTime.Parse( theColumns.ElementAt(3).InnerText );
+                        theNewPlayer.FullName = thePlayer.SelectSingleNode( ".//td[4]" ).InnerText;
 
-                        string theLivePZString = theColumns.ElementAt(6).InnerText.Trim();
+                        var theLivePZNode = thePlayer.SelectSingleNode( ".//td[12]" );
+                        if( theLivePZNode == null )
+                        {
+                            continue;
+                        }
+                        var theLivePZString = theLivePZNode.InnerText;
                         if( !String.IsNullOrEmpty( theLivePZString ) )
                         {
                             try
@@ -74,16 +82,13 @@ namespace tt_calulator_cmd
                             }
                         }
 
-
                         theTeam.Players.Add( theNewPlayer );
                     }
 
                     theLeague.Teams.Add( theTeam );
-
-                    Simulator.SimulateSeason( theLeague );
                 }
-                
             }
+            Simulator.SimulateSeason( theLeague );
         }
     }
 }
