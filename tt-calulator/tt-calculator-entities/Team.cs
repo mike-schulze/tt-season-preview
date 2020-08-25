@@ -16,5 +16,10 @@ namespace tt_calculator_entities
         public string Name { get; set; }
 
         public List<Player> Players { get; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

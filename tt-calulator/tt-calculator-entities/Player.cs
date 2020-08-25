@@ -18,5 +18,10 @@ namespace tt_calculator_entities
         public int CurrentLivePZ { get; set; }
 
         public bool IsActive { get; set; }
+
+        public override string ToString()
+        {
+            return FullName;
+        }
     }
 }

@@ -18,18 +18,52 @@ namespace tt_calculator_entities
         public FixtureResult( int aPointsTeam1, int aPointsTeam2 )
         {
             Points = new Tuple<int, int>( aPointsTeam1, aPointsTeam2 );
-            Result = eResult.eDraw;
-            if ( Points.Item1 > Points.Item2 )
+        }
+
+        public eResult Result {
+            get
             {
-                Result = eResult.eHomeWin;
+                if( Points.Item1 > Points.Item2 )
+                {
+                    return eResult.eHomeWin;
+                }
+                else if( Points.Item1 < Points.Item2 )
+                {
+                    return eResult.eAwayWin;
+                }
+
+                return eResult.eDraw;
             }
-            else if( Points.Item2 < aPointsTeam2 )
+        }
+        public Tuple<int, int> Points { get; private set; }
+
+        public int FixturePointsFor
+        {
+            get
             {
-                Result = eResult.eAwayWin;
+                switch( Result )
+                {
+                    case eResult.eHomeWin:
+                        return 2;
+                    case eResult.eDraw:
+                        return 1;
+                    default:
+                        return 0;
+                }
             }
         }
 
-        public eResult Result { get; private set; }
-        public Tuple<int, int> Points { get; private set; }
+        public int FixturePointsAgainst
+        {
+            get
+            {
+                return 2 - FixturePointsFor;
+            }
+        }
+
+        public override string ToString()
+        {
+            return Points.Item1 + ":" + Points.Item2;
+        }
     }
 }

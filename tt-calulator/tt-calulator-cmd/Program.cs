@@ -89,6 +89,7 @@ namespace tt_calulator_cmd
                 }
             }
             Simulator.SimulateSeason( theLeague );
+            theLeague.PrintResults();
         }
     }
 }
