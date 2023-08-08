@@ -51,22 +51,35 @@ namespace tt_calculator_entities
                 theLpz2 = Players[1].CurrentLivePZ;
             }
 
-            theLpz1 += 25; // Home Court Advantage
+            //theLpz1 += 25; // Home Court Advantage
 
-            double theWinPercentage1 = 1 / ( 1 + Math.Pow( 10, ( (double)theLpz2 - (double)theLpz1 ) / 150 ) );
+            //double theWinPercentage1 = 1 / ( 1 + Math.Pow( 10, ( (double)theLpz2 - (double)theLpz1 ) / 150 ) );
 
-            do
+            //do
+            //{
+            //    double theRandomNumber = mRandomizer.NextDouble();
+            //    if( theRandomNumber <= theWinPercentage1 )
+            //    {
+            //        SetResults.Add( 1 );
+            //    }
+            //    else
+            //    {
+            //        SetResults.Add( -1 );
+            //    }
+            //} while(SetsHome < 3 && SetsAway < 3);
+
+            if( theLpz1 >= theLpz2)
             {
-                double theRandomNumber = mRandomizer.NextDouble();
-                if( theRandomNumber <= theWinPercentage1 )
-                {
-                    SetResults.Add( 1 );
-                }
-                else
-                {
-                    SetResults.Add( -1 );
-                }
-            } while(SetsHome < 3 && SetsAway < 3);
+                SetResults.Add(1);
+                SetResults.Add(1);
+                SetResults.Add(1);
+            }
+            else
+            {
+                SetResults.Add(-1);
+                SetResults.Add(-1);
+                SetResults.Add(-1);
+            }
         }
 
         public readonly List<Player> Players;

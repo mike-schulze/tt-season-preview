@@ -53,7 +53,7 @@ namespace tt_calculator_entities
         public League()
         {
             Teams = new List<Team>();
-            Fixtures = new List<Fixture>();
+            Fixtures = new List<Fixture6>();
         }
 
         public void PrintResults()
@@ -129,6 +129,6 @@ namespace tt_calculator_entities
         public string Name { get; set; }
 
         public List<Team> Teams { get; }
-        public List<Fixture> Fixtures { get; }
+        public List<Fixture6> Fixtures { get; }
     }
 }

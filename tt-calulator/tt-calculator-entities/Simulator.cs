@@ -16,8 +16,8 @@ namespace tt_calculator_entities
             {
                 for( int j=i+1; j<theTeams.Count; ++j )
                 {
-                    aLeague.Fixtures.Add(new Fixture(theTeams[i], theTeams[j]));
-                    aLeague.Fixtures.Add(new Fixture(theTeams[j], theTeams[i]));
+                    aLeague.Fixtures.Add(new Fixture6(theTeams[i], theTeams[j]));
+                    aLeague.Fixtures.Add(new Fixture6(theTeams[j], theTeams[i]));
                 }
             }
 

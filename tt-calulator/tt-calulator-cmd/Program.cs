@@ -14,65 +14,52 @@ namespace tt_calulator_cmd
         {
             var theDoc = new HtmlDocument();
             theDoc.Load( @"C:\Users\MikeS\Desktop\sample.html", Encoding.UTF8 );
-            var theNodes = theDoc.DocumentNode.SelectNodes( "//table" );
+
+            var theNodes = theDoc.DocumentNode.SelectNodes("//table");
 
             var theLeague = new League();
 
             var theCounter = 0;
-            string theTeamName = "";
             foreach( var theNode in theNodes )
             {
-                var theDeductedTables = theCounter - 3;
                 ++theCounter;
 
                 if( theCounter == 1 )
                 {
                     // get league name
-                    var theLeagueNode = theNode.SelectSingleNode( ".//tbody//tr//td[3]" );
+                    var theLeagueNode = theNode.SelectSingleNode( ".//tbody/tr/td[3]" );
                     theLeague.Name = theLeagueNode.InnerText;
                 }
 
-                if ( theDeductedTables < 0 )
+                if( theCounter >= 4 )
                 {
-                    continue;
-                }
+                    var theTeam = theNode.SelectSingleNode(".//tbody/tr[2]/td[2]/table");
 
-                if ( theDeductedTables % 2 == 0 )
-                {
-                    // get team name
-                    theTeamName = theNode.SelectSingleNode( ".//tbody//tr//td" ).InnerText;
-                    if( theTeamName.Substring(0,8) == "Anmelden")
+                    if ( theTeam == null )
                     {
-                        break;
+                        continue;
                     }
-                }
 
-                if( theDeductedTables % 2 == 1 )
-                {
-                    var theTeam = new Team
-                    {
-                        Name = theTeamName
-                    };
+                    var theNewTeam = new Team();
+                    theNewTeam.Name = theTeam.SelectSingleNode(".//tbody/tr/td").InnerText; ;
 
-                    // get players 
-                    var thePlayers = theNode.SelectNodes( ".//tbody//tr[position()>1]" );
-
-                    foreach( var thePlayer in thePlayers )
+                    var thePlayers = theTeam.SelectNodes(".//tbody/tr[2]/td/table/tbody/tr[position()>1]");
+                    foreach( var thePlayer in thePlayers)
                     {
                         var theNewPlayer = new Player();
                         theNewPlayer.FullName = thePlayer.SelectSingleNode( ".//td[4]" ).InnerText;
 
-                        var theLivePZNode = thePlayer.SelectSingleNode( ".//td[12]" );
-                        if( theLivePZNode == null )
+                        var theLivePZNode = thePlayer.SelectSingleNode(".//td[11]");
+                        if (theLivePZNode == null)
                         {
                             continue;
                         }
                         var theLivePZString = theLivePZNode.InnerText;
-                        if( !String.IsNullOrEmpty( theLivePZString ) )
+                        if (!String.IsNullOrEmpty(theLivePZString))
                         {
                             try
                             {
-                                theNewPlayer.CurrentLivePZ = Int32.Parse( theLivePZString );
+                                theNewPlayer.CurrentLivePZ = Int32.Parse(theLivePZString);
                             }
                             catch
                             {
@@ -82,11 +69,24 @@ namespace tt_calulator_cmd
                             }
                         }
 
-                        theTeam.Players.Add( theNewPlayer );
+                        if (theNewPlayer.CurrentLivePZ == 0)
+                        {
+                            if (theNewPlayer.FullName == "Dariusz Olechnik")
+                            {
+                                theNewPlayer.CurrentLivePZ = 1680;
+                            }
+                            if (theNewPlayer.FullName == "Ewelina Olechnik")
+                            {
+                                theNewPlayer.CurrentLivePZ = 1580;
+                            }
+                        }
+
+                        theNewTeam.Players.Add( theNewPlayer );
                     }
 
-                    theLeague.Teams.Add( theTeam );
+                    theLeague.Teams.Add(theNewTeam);
                 }
+
             }
             Simulator.SimulateSeason( theLeague );
             theLeague.PrintResults();

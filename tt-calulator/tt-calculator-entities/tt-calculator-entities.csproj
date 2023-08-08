@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fixture6.cs" />
     <Compile Include="Fixture.cs" />
     <Compile Include="League.cs" />
     <Compile Include="FixtureResult.cs" />
